@@ -1,0 +1,42 @@
+{
+  "name": "be-tramthuy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --inspect src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chanh2000kh/BE-TramThuy.git"
+  },
+  "keywords": [
+    "TramThuy",
+    "BE-TramThuy"
+  ],
+  "author": "chanh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chanh2000kh/BE-TramThuy/issues"
+  },
+  "homepage": "https://github.com/chanh2000kh/BE-TramThuy#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "firebase-admin": "^11.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.4.4",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.7.7",
+    "nodemon": "^2.0.19",
+    "otp-generator": "^4.0.0",
+    "uuid": "^8.3.2",
+    "uuid-v4": "^0.1.0",
+    "uuidv4": "^6.2.13"
+  }
+}

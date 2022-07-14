@@ -1,0 +1,11 @@
+const express = require('express')
+const productTypeRoute = require('../routes/ProductType.route')
+const adminRoute = require('../routes/Admin.route')
+const userRoute = require('../routes/User.route')
+const productRoute = require('../routes/Product.route')
+const router = express.Router()
+router.use('/api/producttype', productTypeRoute)
+router.use('/api/admin', adminRoute)
+router.use('/api/user', userRoute)
+router.use('/api/product', productRoute)
+module.exports = router
