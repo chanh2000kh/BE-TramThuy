@@ -68,8 +68,6 @@ exports.loginAsync = async (body) => {
             role: user.role,
             //expiresIn: '24h' // expires in 24 hours
         });
-        console.log(generateToken);
-
         return {
             message: "Successfully login",
             success: true,
