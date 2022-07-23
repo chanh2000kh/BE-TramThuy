@@ -12,6 +12,7 @@ const schemas = {
         age: joi.string(),
         use: joi.string(),
         productTypeId: joi.string().required(),
+        tag: joi.number()
     }),
 };
 module.exports = schemas;

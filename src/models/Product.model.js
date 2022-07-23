@@ -41,6 +41,11 @@ const ProductSchema = new Schema({
     numberOfSeeds: defaultModel.string,
     age: defaultModel.string,
     use: defaultModel.string,
+    type: defaultModel.array,
+    size: defaultModel.array,
+    tag: {
+        type: Number
+    },
     productTypeId: {
         type: Schema.Types.ObjectId,
         ref: 'productTypes'

@@ -6,6 +6,7 @@ const productRoute = require('../routes/Product.route')
 const cartRoute = require('../routes/Cart.route')
 const billRoute = require('../routes/Bill.route')
 const discountCodeRoute = require('../routes/DiscountCode.route')
+const reviewRoute = require('../routes/Review.route')
 const router = express.Router()
 
 router.use('/api/producttype', productTypeRoute)
@@ -15,5 +16,6 @@ router.use('/api/product', productRoute)
 router.use('/api/cart', cartRoute)
 router.use('/api/bill', billRoute)
 router.use('/api/discountCode', discountCodeRoute)
+router.use('/api/review', reviewRoute)
 
 module.exports = router

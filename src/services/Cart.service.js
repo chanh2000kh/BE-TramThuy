@@ -54,7 +54,34 @@ exports.getCartAsync = async (id, body) => {
     };
   }
 };
+exports.getCartHaventTokenAsync = async ( body) => {
+  try {
+    const data = [];
+    for (let i = 0; i < body.listCart.length; i++) {
+      var product = await Product.findOne({
+        _id: body.listCart[i].idProduct,
+      });
+      data.push({
+        amount: body.listCart[i].amount,
+        product: product,
+      });
+    }
 
+    return {
+      message: "Successfully Add Product To Cart !!",
+      success: true,
+      data: data,
+    };
+
+   
+  } catch (err) {
+    console.log(err);
+    return {
+      message: "An error occurred",
+      success: false,
+    };
+  }
+};
 
 exports.addCartAsync = async (id, body) => {
   try {

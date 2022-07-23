@@ -14,5 +14,8 @@ const schemas = {
     }),
     getCart: joi.object().keys({
     }),
+    getCartHaventToken: joi.object().keys({
+        listCart: joi.array()
+    }),
 };
 module.exports = schemas;

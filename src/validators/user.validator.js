@@ -35,5 +35,8 @@ const schemas = {
     oldPassword: joi.string().required(),
     newPassword: joi.string().required(),
   }),
+  registerByEmail: joi.object().keys({
+    email: joi.string().required(),
+  }),
 };
 module.exports = schemas;

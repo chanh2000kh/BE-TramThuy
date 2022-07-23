@@ -26,6 +26,22 @@ exports.getBillAsync = async (id, body) => {
     };
   }
 };
+exports.getBillByIdAsync = async (body) => {
+  try {
+    const bill = await Bill.findOne({_id: body.id})
+    return {
+      message: "Successfully Get A Bill",
+      success: true,
+      data: bill,
+    };
+  } catch (err) {
+    console.log(err);
+    return {
+      error: "Internal Server",
+      success: false,
+    };
+  }
+};
 exports.createBillAsync = async (id, body) => {
   try {
     var newBill = new Bill(body);
@@ -60,6 +76,72 @@ exports.createBillAsync = async (id, body) => {
     // })
     // console.log(products)
     console.log(totalMoneyBill);
+    newBill.totalMoneyBill = totalMoneyBill;
+    newBill.products = products;
+    await newBill.save();
+    const mailOptions = {
+      to: body.email,
+      from: configEnv.Email,
+      subject: "Xác nhận tạo hóa đơn thành công!",
+      text: `
+            Mã đơn hàng: ${newBill._id}
+            Tên: ${newBill.name}
+            Địa chỉ: ${newBill.address}
+            Số điện thoại: ${newBill.phone}
+            Tổng tiền của hóa đơn: ${format1(newBill.totalMoneyBill)} VNĐ
+            Danh sách sản phẩm đã mua:
+            ${newBill.products.map((data) => {
+              return `
+                Tên sản phẩm: ${data.product.name}
+                Số lượng: ${data.amount}
+                Số tiền phải trả là: ${format1(data.totalMoney)} VNĐ
+                
+                `;
+            })}
+
+            Cảm ơn khách hàng đã mua hàng của chúng tôi!
+            `,
+    };
+    const resultSendMail = await sendMail(mailOptions);
+    if (!resultSendMail) {
+      return {
+        message: "Send Email Failed",
+        success: false,
+      };
+    } else {
+      return {
+        message: "Successfully Create Bill",
+        success: true,
+        data: newBill,
+      };
+    }
+  } catch (err) {
+    console.log(err);
+    return {
+      error: "Internal Server",
+      success: false,
+    };
+  }
+};
+exports.createBillHaventTokenAsync = async (body) => {
+  try {
+    var newBill = new Bill(body);
+    const products = [];
+    var totalMoneyBill = 0;
+    for (let i = 0; i < newBill.products.length; i++) {
+      var product = await Product.findOne({
+        _id: newBill.products[i].product._id,
+      });
+      var totalMoney = newBill.products[i].amount * product.price;
+
+      totalMoneyBill = totalMoneyBill + totalMoney;
+
+      products.push({
+        totalMoney: totalMoney,
+        product: product,
+        amount: newBill.products[i].amount,
+      });
+    }
     newBill.totalMoneyBill = totalMoneyBill;
     newBill.products = products;
     await newBill.save();

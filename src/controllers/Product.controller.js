@@ -100,3 +100,90 @@ exports.updateProductAsync = async (req, res, next) => {
 		return controller.sendError(res);
 	}
 }
+
+exports.getAllProductAsync = async (req, res, next) => {
+	try {
+		let query = {		
+			limit: req.query.limit || '15',
+			skip: req.query.skip || '1',
+		};
+		const resServices = await productServices.getAllProductAsync(query);
+		if (resServices.success) {
+			return controller.sendSuccess(
+				res,
+				resServices.data,
+				200,
+				resServices.message
+			);
+		}
+		return controller.sendSuccess(
+			res,
+			resServices.data,
+			300,
+			resServices.message
+		);
+	} catch (error) {
+		// bug
+		console.log(error);
+		return controller.sendError(res);
+	}
+};
+
+exports.getAllProductByTypeIdAsync = async (req, res, next) => {
+	try {
+		let query = {		
+			limit: req.query.limit || '15',
+			skip: req.query.skip || '1',
+			productTypeId: req.query.id,
+			tag: req.query.tag || 0,
+			min: req.query.min || 0,
+			max: req.query.max || 10000000,
+		};
+		const resServices = await productServices.getAllProductByTypeIdAsync(query);
+		if (resServices.success) {
+			return controller.sendSuccess(
+				res,
+				resServices.data,
+				200,
+				resServices.message
+			);
+		}
+		return controller.sendSuccess(
+			res,
+			resServices.data,
+			300,
+			resServices.message
+		);
+	} catch (error) {
+		// bug
+		console.log(error);
+		return controller.sendError(res);
+	}
+};
+
+exports.getOneProductAsync = async (req, res, next) => {
+	try {
+		let query = {		
+			id: req.query.id
+		};
+		const resServices = await productServices.getOneProductAsync(query);
+		if (resServices.success) {
+			return controller.sendSuccess(
+				res,
+				resServices.data,
+				200,
+				resServices.message
+			);
+		}
+		return controller.sendSuccess(
+			res,
+			resServices.data,
+			300,
+			resServices.message
+		);
+	} catch (error) {
+		// bug
+		console.log(error);
+		return controller.sendError(res);
+	}
+};

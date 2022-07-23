@@ -3,10 +3,7 @@ const Schema = mongoose.Schema;
 const { defaultModel } = require("../config/defineModel");
 
 const Cart = new Schema({
-  idUser: {
-    type: Schema.Types.ObjectId,
-    ref: "users",
-  },
+  idUser: defaultModel.string,
   amount: defaultModel.number,
   idProduct: {
     type: Schema.Types.ObjectId,

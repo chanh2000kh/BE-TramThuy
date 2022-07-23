@@ -25,6 +25,30 @@ exports.createUserAsync = async (req, res, next) => {
 		return controller.sendError(res);
 	}
 };
+exports.registerByEmailAsync = async (req, res, next) => {
+	try {
+		const resServices = await userServices.registerByEmailAsync(req.value.body);
+		if (!resServices.success) {
+			return controller.sendSuccess(
+				res,
+				resServices.success,
+				300,
+				resServices.message
+			);
+		}
+
+		return controller.sendSuccess(
+			res,
+			resServices.data,
+			200,
+			resServices.message
+		);
+
+	} catch (err) {
+		console.log(err);
+		return controller.sendError(res);
+	}
+};
 exports.loginUserAsync = async (req, res, next) => {
 	try {
 		const resServices = await userServices.loginUserAsync(req.value.body);

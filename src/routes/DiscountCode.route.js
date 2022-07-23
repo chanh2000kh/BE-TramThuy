@@ -8,4 +8,5 @@ const { defaultRoles } = require('../config/defineModel')
 const SchemaValidateDiscountCode = require("../validators/discountCode.validator")
 
 router.post('/addDiscountCode', jwtServices.verify, checkRole([defaultRoles.Admin]), Validate.body(SchemaValidateDiscountCode.addDiscountCode), Controller.addDiscountCodeAsync)
+router.put('/editDiscountCode', jwtServices.verify, checkRole([defaultRoles.Admin]), Validate.body(SchemaValidateDiscountCode.editDiscountCode), Controller.editDiscountCodeAsync)
 module.exports = router

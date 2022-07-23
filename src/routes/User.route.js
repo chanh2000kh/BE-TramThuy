@@ -8,6 +8,7 @@ const { defaultRoles } = require('../config/defineModel')
 const SchemaValidateUser = require("../validators/user.validator")
 
 router.post('/createUser', Validate.body(SchemaValidateUser.createUser), Controller.createUserAsync)
+router.post('/registerbyemail', Validate.body(SchemaValidateUser.registerByEmail), Controller.registerByEmailAsync)
 router.post('/loginUser', Validate.body(SchemaValidateUser.loginUser), Controller.loginUserAsync)
 router.post('/loginwithGoogle', Validate.body(SchemaValidateUser.loginGoogle), Controller.loginwithGoogleAsync)
 router.get('/findUserByToken', jwtServices.verify, Controller.findUserByTokenAsync)

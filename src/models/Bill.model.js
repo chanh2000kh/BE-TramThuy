@@ -3,10 +3,7 @@ const Schema = mongoose.Schema;
 const { defaultModel } = require("../config/defineModel");
 
 const Bill = new Schema({
-  idUser: {
-    type: Schema.Types.ObjectId,
-    ref: "users",
-  },
+  idUser: defaultModel.string,
   name: defaultModel.string,
   address: defaultModel.string,
   ZIPcode: defaultModel.string,
