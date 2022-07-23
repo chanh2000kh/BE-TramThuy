@@ -40,5 +40,5 @@ app.get("/*", (req, res) => res.send({ message: "cannot access route" }));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Example app listening on port ${PORT}`);
 });
