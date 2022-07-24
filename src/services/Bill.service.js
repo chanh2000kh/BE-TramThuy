@@ -12,7 +12,7 @@ function format1(n) {
 }
 exports.getBillAsync = async (id, body) => {
   try {
-    const listBill = await Bill.find({idUser: id})
+    const listBill = await Bill.find({ idUser: id });
     return {
       message: "Successfully Get Bill",
       success: true,
@@ -28,7 +28,7 @@ exports.getBillAsync = async (id, body) => {
 };
 exports.getBillByIdAsync = async (body) => {
   try {
-    const bill = await Bill.findOne({_id: body.id})
+    const bill = await Bill.findOne({ _id: body.id });
     return {
       message: "Successfully Get A Bill",
       success: true,
@@ -132,14 +132,26 @@ exports.createBillHaventTokenAsync = async (body) => {
       var product = await Product.findOne({
         _id: newBill.products[i].product._id,
       });
-      var totalMoney = newBill.products[i].amount * product.price;
+      if (product.size.length > 0)
+        var totalMoney =
+          newBill.products[i].amount *
+          (product.price +
+            Number(product.size[newBill.products[i].check].priceAdd));
 
+      if (product.type.length > 0)
+        var totalMoney =
+          newBill.products[i].amount *
+          (product.price +
+            Number(product.type[newBill.products[i].check].priceAdd));
+      if (product.type.length == 0 && product.size.length == 0)
+        var totalMoney = newBill.products[i].amount * product.price;
       totalMoneyBill = totalMoneyBill + totalMoney;
 
       products.push({
         totalMoney: totalMoney,
         product: product,
         amount: newBill.products[i].amount,
+        check: newBill.products[i].check,
       });
     }
     newBill.totalMoneyBill = totalMoneyBill;

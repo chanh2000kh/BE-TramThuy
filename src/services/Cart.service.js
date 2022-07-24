@@ -64,6 +64,7 @@ exports.getCartHaventTokenAsync = async ( body) => {
       data.push({
         amount: body.listCart[i].amount,
         product: product,
+        check: body.listCart[i].check,
       });
     }
 
