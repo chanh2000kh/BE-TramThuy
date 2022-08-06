@@ -60,7 +60,7 @@ exports.createProductTypeAsync = async body => {
             data: newProductType
         }
     } catch (error) {
-        console.log(e);
+        console.log(error);
         return {
             message: 'An error occurred',
             success: false
@@ -83,7 +83,7 @@ exports.updateProductTypeAsync = async body => {
             data: type
         };
     } catch (error) {
-        console.log(e);
+        console.log(error);
         return {
             message: 'An error occurred',
             success: false

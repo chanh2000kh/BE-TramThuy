@@ -24,6 +24,9 @@ var cpUpload = upload.fields([{ name: 'img', maxCount: 100 }, { name: 'img', max
 router.post('/createProduct',cpUpload, jwtServices.verify, checkRole([defaultRoles.Admin]), Validate.body(SchemaValidateProduct.createProduct), Controller.createProductAsync)
 router.put('/updateProduct',cpUpload, jwtServices.verify, checkRole([defaultRoles.Admin]), Controller.updateProductAsync)
 router.get('/getProductAll', Controller.getAllProductAsync)
+router.get('/getProductBestSell', Controller.getProductBestSellAsync)
+router.get('/getProductTagTotal', Controller.getProductTagTotalAsync)
 router.get('/getProductByTypeId', Controller.getAllProductByTypeIdAsync)
+router.post('/getProductByTypeId1', Validate.body(SchemaValidateProduct.productByTypeId1), Controller.getAllProductByTypeId1Async)
 router.get('/getOneProduct', Controller.getOneProductAsync)
 module.exports = router

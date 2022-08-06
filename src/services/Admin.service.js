@@ -62,7 +62,6 @@ exports.loginAsync = async (body) => {
                 success: false,
             };
         }
-        console.log(user);
         const generateToken = jwtServices.createToken({
             id: user._id,
             role: user.role,

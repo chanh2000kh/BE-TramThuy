@@ -129,6 +129,62 @@ exports.getAllProductAsync = async (req, res, next) => {
 	}
 };
 
+exports.getProductTagTotalAsync = async (req, res, next) => {
+	try {
+		let query = {		
+			id: req.query.id
+		};
+		const resServices = await productServices.getProductTagTotalAsync(query);
+		if (resServices.success) {
+			return controller.sendSuccess(
+				res,
+				resServices.data,
+				200,
+				resServices.message
+			);
+		}
+		return controller.sendSuccess(
+			res,
+			resServices.data,
+			300,
+			resServices.message
+		);
+	} catch (error) {
+		// bug
+		console.log(error);
+		return controller.sendError(res);
+	}
+};
+
+exports.getProductBestSellAsync = async (req, res, next) => {
+	try {
+		let query = {		
+			limit: req.query.limit || '15',
+			skip: req.query.skip || '1',
+			increase: req.query.increase || 1,
+		};
+		const resServices = await productServices.getProductBestSellAsync(query);
+		if (resServices.success) {
+			return controller.sendSuccess(
+				res,
+				resServices.data,
+				200,
+				resServices.message
+			);
+		}
+		return controller.sendSuccess(
+			res,
+			resServices.data,
+			300,
+			resServices.message
+		);
+	} catch (error) {
+		// bug
+		console.log(error);
+		return controller.sendError(res);
+	}
+};
+
 exports.getAllProductByTypeIdAsync = async (req, res, next) => {
 	try {
 		let query = {		
@@ -140,6 +196,39 @@ exports.getAllProductByTypeIdAsync = async (req, res, next) => {
 			max: req.query.max || 10000000,
 		};
 		const resServices = await productServices.getAllProductByTypeIdAsync(query);
+		if (resServices.success) {
+			return controller.sendSuccess(
+				res,
+				resServices.data,
+				200,
+				resServices.message
+			);
+		}
+		return controller.sendSuccess(
+			res,
+			resServices.data,
+			300,
+			resServices.message
+		);
+	} catch (error) {
+		// bug
+		console.log(error);
+		return controller.sendError(res);
+	}
+};
+
+exports.getAllProductByTypeId1Async = async (req, res, next) => {
+	try {
+		console.log(req.value.body)
+		let query = {		
+			limit: req.query.limit || '15',
+			skip: req.query.skip || '1',
+			productTypeId: req.query.id,
+			tag: req.value.body.tag,
+			min: req.query.min || 0,
+			max: req.query.max || 10000000,
+		};
+		const resServices = await productServices.getAllProductByTypeId1Async(query);
 		if (resServices.success) {
 			return controller.sendSuccess(
 				res,

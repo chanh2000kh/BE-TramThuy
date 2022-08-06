@@ -12,6 +12,11 @@ const reviewSchema = new Schema({
     name: defaultModel.stringR,
     writeReview: defaultModel.string,
     verify: defaultModel.number,
+    img: defaultModel.stringImage,
+    createdAt: {
+        type: Date,
+        default: Date.now(),
+    },
 })
 
 module.exports = mongoose.model('reviews', reviewSchema)

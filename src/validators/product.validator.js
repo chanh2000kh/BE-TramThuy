@@ -5,14 +5,15 @@ const schemas = {
         price: joi.number().required(),
         img: joi.array(),
         numberOfRemain: joi.number(),
-        meaningful: joi.string(),
-        material: joi.string(), 
-        source: joi.string(),
-        numberOfSeeds: joi.string(),
-        age: joi.string(),
-        use: joi.string(),
         productTypeId: joi.string().required(),
-        tag: joi.number()
+        tag: joi.number(),
+        type: joi.array(),
+        size: joi.array(),
+        detailProduct: joi.string(),
+        listDescribeId: joi.array(),
+    }),
+    productByTypeId1: joi.object().keys({
+        tag: joi.array(),
     }),
 };
 module.exports = schemas;

@@ -26,6 +26,72 @@ exports.getBillAsync = async (id, body) => {
     };
   }
 };
+
+exports.getBillByStatusAsync = async (body) => {
+  try {
+    const { skip, limit, status } = body;
+
+    const listBill = await Bill.find({ status: status })
+      .sort({ createdAt: -1 })
+      .skip(Number(limit) * Number(skip) - Number(limit))
+      .limit(Number(limit));
+    return {
+      message: "Successfully Get list Bill",
+      success: true,
+      data: listBill,
+    };
+  } catch (e) {
+    console.log(e);
+    return {
+      message: "An error occurred",
+      success: false,
+    };
+  }
+};
+
+exports.changeStatusAsync = async (body) => {
+  try {
+    const bill = await Bill.findOne({ _id: body.billId });
+    if (bill == null) {
+      return {
+        message: "Invalid bill",
+        success: false,
+      };
+    }
+   
+    if (body.status == 1) {
+      for (let i = 0; i < bill.products.length; i++) {
+        var product = await Product.findOne({
+          _id: bill.products[i].product._id,
+        });
+        var add = product.numberOfSold + bill.products[i].amount;
+        product.numberOfSold = add;
+        var calculateAmount = product.numberOfRemain - bill.products[i].amount;
+        if(calculateAmount < 0) return {
+          message: "Not enough products to confirm!",
+          success: false,
+          data: product.numberOfRemain
+        };
+        product.numberOfRemain = calculateAmount
+        await product.save()
+      }
+    }
+    bill.status = body.status;
+    await bill.save();
+    return {
+      message: "Successfully change bill status",
+      success: true,
+      data: bill,
+    };
+  } catch (e) {
+    console.log(e);
+    return {
+      message: "An error occurred",
+      success: false,
+    };
+  }
+};
+
 exports.getBillByIdAsync = async (body) => {
   try {
     const bill = await Bill.findOne({ _id: body.id });

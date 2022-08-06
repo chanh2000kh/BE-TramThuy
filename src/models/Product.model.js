@@ -35,12 +35,6 @@ const ProductSchema = new Schema({
         type: Date,
         default: Date.now(),
     },
-    meaningful: defaultModel.string,
-    material:  defaultModel.string,
-    source: defaultModel.string,
-    numberOfSeeds: defaultModel.string,
-    age: defaultModel.string,
-    use: defaultModel.string,
     type: defaultModel.array,
     size: defaultModel.array,
     tag: {
@@ -49,7 +43,9 @@ const ProductSchema = new Schema({
     productTypeId: {
         type: Schema.Types.ObjectId,
         ref: 'productTypes'
-    }
+    },
+    detailProduct: defaultModel.string,
+    listDescribeId: defaultModel.array,
 })
 
 module.exports = mongoose.model('products', ProductSchema)

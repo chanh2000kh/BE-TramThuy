@@ -9,5 +9,7 @@ const SchemaValidateReview = require("../validators/review.validator")
 
 router.post('/addReview', Validate.body(SchemaValidateReview.addReview), Controller.addReviewAsync)
 router.put('/verifyReview', jwtServices.verify, checkRole([defaultRoles.Admin]), Validate.body(SchemaValidateReview.verifyReview), Controller.verifyReviewAsync)
-
+router.get('/getReviewByIdProduct', Controller.getReviewByIdProductAsync)
+router.get('/getAllReview', Controller.getAllReviewAsync)
+router.get('/getAllReviewNew', Controller.getAllReviewNewAsync)
 module.exports = router

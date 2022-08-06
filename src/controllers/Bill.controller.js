@@ -54,6 +54,61 @@ exports.createBillHaventTokenAsync = async (req, res, next) => {
     }
 };
 
+exports.changeStatusAsync = async (req, res, next) => {
+	try {
+		const resServices = await billServices.changeStatusAsync(req.body);
+		if (!resServices.success) {
+			return controller.sendSuccess(
+				res,
+				resServices.success,
+				300,
+				resServices.message
+			);
+		}
+
+		return controller.sendSuccess(
+			res,
+			resServices.data,
+			200,
+			resServices.message
+		);
+
+	} catch (err) {
+		console.log(err);
+		return controller.sendError(res);
+	}
+};
+
+
+exports.getBillByStatusAsync = async (req, res, next) => {
+	try {
+		let query = {		
+			limit: req.query.limit || '15',
+			skip: req.query.skip || '1',
+            status : req.query.status || 0
+		};
+		const resServices = await billServices.getBillByStatusAsync(query);
+		if (resServices.success) {
+			return controller.sendSuccess(
+				res,
+				resServices.data,
+				200,
+				resServices.message
+			);
+		}
+		return controller.sendSuccess(
+			res,
+			resServices.data,
+			300,
+			resServices.message
+		);
+	} catch (error) {
+		// bug
+		console.log(error);
+		return controller.sendError(res);
+	}
+};
+
 exports.getBillAsync = async (req, res, next) => {
     try {
         const { decodeToken } = req.value.body;

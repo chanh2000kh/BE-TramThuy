@@ -1,9 +1,9 @@
 const controller = require('./controller');
-const reviewServices = require('../services/Review.service');
+const DescribeServices = require('../services/Describe.service');
 
-exports.addReviewAsync = async (req, res, next) => {
+exports.addDescribeAsync = async (req, res, next) => {
 	try {
-		const resServices = await reviewServices.addReviewAsync(req.value.body);
+		const resServices = await DescribeServices.addDescribeAsync(req.value.body);
 		if (!resServices.success) {
 			return controller.sendSuccess(
 				res,
@@ -26,9 +26,9 @@ exports.addReviewAsync = async (req, res, next) => {
 	}
 };
 
-exports.verifyReviewAsync = async (req, res, next) => {
+exports.editDescribeAsync = async (req, res, next) => {
 	try {
-		const resServices = await reviewServices.verifyReviewAsync(req.value.body);
+		const resServices = await DescribeServices.editDescribeAsync(req.value.body);
 		if (!resServices.success) {
 			return controller.sendSuccess(
 				res,
@@ -51,14 +51,13 @@ exports.verifyReviewAsync = async (req, res, next) => {
 	}
 };
 
-exports.getReviewByIdProductAsync = async (req, res, next) => {
+exports.getDescribeAsync = async (req, res, next) => {
 	try {
 		let query = {		
 			limit: req.query.limit || '15',
 			skip: req.query.skip || '1',
-			productId: req.query.id,
 		};
-		const resServices = await reviewServices.getReviewByIdProductAsync(query);
+		const resServices = await DescribeServices.getDescribeAsync(query);
 		if (resServices.success) {
 			return controller.sendSuccess(
 				res,
@@ -80,41 +79,12 @@ exports.getReviewByIdProductAsync = async (req, res, next) => {
 	}
 };
 
-exports.getAllReviewAsync = async (req, res, next) => {
+exports.getDescribeByIdAsync = async (req, res, next) => {
 	try {
 		let query = {		
-			limit: req.query.limit || '15',
-			skip: req.query.skip || '1',
+            id: req.query.id,
 		};
-		const resServices = await reviewServices.getAllReviewAsync(query);
-		if (resServices.success) {
-			return controller.sendSuccess(
-				res,
-				resServices.data,
-				200,
-				resServices.message
-			);
-		}
-		return controller.sendSuccess(
-			res,
-			resServices.data,
-			300,
-			resServices.message
-		);
-	} catch (error) {
-		// bug
-		console.log(error);
-		return controller.sendError(res);
-	}
-};
-
-exports.getAllReviewNewAsync = async (req, res, next) => {
-	try {
-		let query = {		
-			limit: req.query.limit || '15',
-			skip: req.query.skip || '1',
-		};
-		const resServices = await reviewServices.getAllReviewNewAsync(query);
+		const resServices = await DescribeServices.getDescribeByIdAsync(query);
 		if (resServices.success) {
 			return controller.sendSuccess(
 				res,
