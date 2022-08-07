@@ -54,10 +54,18 @@ exports.getKnowledgeAllAsync = async body => {
         const { skip, limit } = body;
 
         const knowledge = await Knowledge.find().sort({ createdAt: -1 }).skip(Number(limit) * Number(skip) - Number(limit)).limit(Number(limit));
+        const total = await Knowledge.find().sort({ createdAt: -1 }).count();
+          //---------------------
+          var pageNumber = 0;
+          if (total % limit == 0) {
+            pageNumber = total / limit;
+          } else {
+            pageNumber = Math.floor(total / limit) + 1;
+          }
         return {
             message: 'Successfully Get All Knowledge',
             success: true,
-            data: knowledge
+            data: {total, pageNumber, knowledge}
         };
     } catch (e) {
         console.log(e);
