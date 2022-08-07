@@ -27,6 +27,7 @@ router.get('/getProductAll', Controller.getAllProductAsync)
 router.get('/getProductBestSell', Controller.getProductBestSellAsync)
 router.get('/getProductTagTotal', Controller.getProductTagTotalAsync)
 router.get('/getProductByTypeId', Controller.getAllProductByTypeIdAsync)
+router.get('/searchProduct', Controller.searchProductAsync)
 router.post('/getProductByTypeId1', Validate.body(SchemaValidateProduct.productByTypeId1), Controller.getAllProductByTypeId1Async)
 router.get('/getOneProduct', Controller.getOneProductAsync)
 module.exports = router

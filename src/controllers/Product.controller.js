@@ -217,6 +217,35 @@ exports.getAllProductByTypeIdAsync = async (req, res, next) => {
 	}
 };
 
+exports.searchProductAsync = async (req, res, next) => {
+	try {
+		let query = {		
+			limit: req.query.limit || '5',
+			skip: req.query.skip || '1',
+			name: req.query.name
+		};
+		const resServices = await productServices.searchProductAsync(query);
+		if (resServices.success) {
+			return controller.sendSuccess(
+				res,
+				resServices.data,
+				200,
+				resServices.message
+			);
+		}
+		return controller.sendSuccess(
+			res,
+			resServices.data,
+			300,
+			resServices.message
+		);
+	} catch (error) {
+		// bug
+		console.log(error);
+		return controller.sendError(res);
+	}
+};
+
 exports.getAllProductByTypeId1Async = async (req, res, next) => {
 	try {
 		console.log(req.value.body)
@@ -225,6 +254,8 @@ exports.getAllProductByTypeId1Async = async (req, res, next) => {
 			skip: req.query.skip || '1',
 			productTypeId: req.query.id,
 			tag: req.value.body.tag,
+			fromBigToSmall: req.value.body.fromBigToSmall || -1,
+			name: req.value.body.name || "createdAt",
 			min: req.query.min || 0,
 			max: req.query.max || 10000000,
 		};

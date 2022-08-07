@@ -14,6 +14,8 @@ const schemas = {
     }),
     productByTypeId1: joi.object().keys({
         tag: joi.array(),
+        fromBigToSmall: joi.string(),
+        name: joi.string()
     }),
 };
 module.exports = schemas;

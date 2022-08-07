@@ -107,6 +107,29 @@ exports.getProductBestSellAsync = async (body) => {
     };
   }
 };
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+exports.searchProductAsync = async (body) => {
+  try {
+    const { skip, limit, name } = body;
+    const regex = new RegExp(escapeRegex(name), 'gi');
+    const product = await Product.find({ "name": regex })
+      .skip(Number(limit) * Number(skip) - Number(limit))
+      .limit(Number(limit));
+    return {
+      message: "Successfully Get Product By Name",
+      success: true,
+      data: product,
+    };
+  } catch (e) {
+    console.log(e);
+    return {
+      message: "An error occurred",
+      success: false,
+    };
+  }
+};
 
 exports.getAllProductByTypeIdAsync = async (body) => {
   try {
@@ -166,13 +189,13 @@ exports.getAllProductByTypeIdAsync = async (body) => {
 
 exports.getAllProductByTypeId1Async = async (body) => {
   try {
-    const { skip, limit, tag, productTypeId, min, max } = body;
+    const { skip, limit, tag, productTypeId, min, max, fromBigToSmall, name } = body;
     if (tag == null) {
       const product = await Product.find({
         productTypeId: productTypeId,
         price: { $gte: min, $lte: max },
       })
-        .sort({ createdAt: -1 })
+        .sort({ [`${name}`]: fromBigToSmall })
         .skip(Number(limit) * Number(skip) - Number(limit))
         .limit(Number(limit));
       const total = await Product.find({
@@ -207,7 +230,7 @@ exports.getAllProductByTypeId1Async = async (body) => {
           },
         ],
       })
-        .sort({ createdAt: -1 })
+        .sort({ [`${name}`]: fromBigToSmall })
         .skip(Number(limit) * Number(skip) - Number(limit))
         .limit(Number(limit));
       const total = await Product.find({
