@@ -9,5 +9,10 @@ const SchemaValidateAdmin = require("../validators/admin.validator")
 
 router.post('/createUserAdmin', jwtServices.verify, checkRole([defaultRoles.Admin]), Validate.body(SchemaValidateAdmin.createUser), Controller.createUserAsync)
 router.post('/loginAdmin', Validate.body(SchemaValidateAdmin.loginUser), Controller.loginAsync)
-
+router.get('/quantityStatisticsAdmin', jwtServices.verify, checkRole([defaultRoles.Admin]), Controller.quantityStatisticsAdminAsync)
+router.get('/statisticsBillAdmin', jwtServices.verify, checkRole([defaultRoles.Admin]), Controller.statisticsBillAdminAsync)
+router.get('/getBestSellProductAdmin', jwtServices.verify, checkRole([defaultRoles.Admin]), Controller.getBestSellProductAdminAsync)
+router.get('/statisticsReviewAdmin', jwtServices.verify, checkRole([defaultRoles.Admin]), Controller.statisticsReviewAdminAsync)
+router.get('/getReviewNewAdmin', jwtServices.verify, checkRole([defaultRoles.Admin]), Controller.getReviewNewAdminAsync)
+router.get('/getStatisticsSellAdmin', jwtServices.verify, checkRole([defaultRoles.Admin]), Controller.getStatisticsSellAdminAsync)
 module.exports = router

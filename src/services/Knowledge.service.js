@@ -53,7 +53,7 @@ exports.getKnowledgeAllAsync = async body => {
     try {
         const { skip, limit } = body;
 
-        const knowledge = await Knowledge.find().sort({ createdAt: -1 }).skip(Number(limit) * Number(skip) - Number(limit)).limit(Number(limit));
+        const knowledge = await Knowledge.find({},{name: 1, author: 1, tag: 1, img: 1, describe: 1, view: 1, createdAt: 1}).sort({ createdAt: -1 }).skip(Number(limit) * Number(skip) - Number(limit)).limit(Number(limit));
         const total = await Knowledge.find().sort({ createdAt: -1 }).count();
           //---------------------
           var pageNumber = 0;
